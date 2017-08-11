@@ -273,7 +273,7 @@ if ( !$learnt ) {
                                     my $json_map = decode_json( $json_text, { utf8  => 1 } );
                                     my $filelist = "$InjectionBundle/filelist.txt";
                                     $filelist = "$projRoot/$filelist" if $filelist !~ m@^/@;
-                                    my $swift_sources = join "\n", keys %$json_map;
+                                    my $swift_sources = join "\n", sort { length $a <=> length $b } keys %$json_map;
                                     IO::File->new( "> $filelist" )->print( $swift_sources );
                                     $learnt =~ s/( -filelist )(\S+)( )/$1$filelist$3/;
                                     last FOUND;
